@@ -70,12 +70,6 @@ public class ServicioCuController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
 
-        stage.setTitle("Gestión de Taller");
-        if (servicio != null) {
-            lblTitle.setText("Modificar factura");
-
-        }
-
         //stage.getIcons().add(new Image(AppConstants.PATH_LOGO));
         stage.setResizable(false);
 
@@ -96,20 +90,21 @@ public class ServicioCuController implements Initializable {
      * @param event
      */
     private void handleWindowShowing(WindowEvent event) {
+        lblTitle.setText("");
         if (servicio != null) {
-            logger.info("Abierta ventana modificar cliente.");
-
+            logger.info("Abierta ventana modificar servicio.");
+            
             // Set titulo de ventana y texto de boton crear/modificar.
-            lblTitle.setText("Modificar Cliente");
-
+            stage.setTitle("ServiTec - Modificar servicio");
             // Asignar valores de objeto seleccionado a los campos
             tfName.setText(servicio.getName());
             tfDesc.setText(servicio.getDescription());
             tfPrice.setText(String.valueOf(servicio.getPrice()));
 
         } else {
-            logger.info("Abierta ventana crear factura.");
-            lblTitle.setText("Crear Cliente");
+            logger.info("Abierta ventana crear servicio.");
+            stage.setTitle("ServiTec - Crear servicio");
+            lblTitle.setText("");
         }
 
     }

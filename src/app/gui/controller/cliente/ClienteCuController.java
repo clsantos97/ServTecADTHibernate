@@ -73,11 +73,8 @@ public class ClienteCuController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
 
-        stage.setTitle("Gestión de Taller");
-        if (cliente != null) {
-            lblTitle.setText("Modificar factura");
+        lblTitle.setText("");
 
-        }
 
         //stage.getIcons().add(new Image(AppConstants.PATH_LOGO));
         stage.setResizable(false);
@@ -103,7 +100,7 @@ public class ClienteCuController implements Initializable {
             logger.info("Abierta ventana modificar cliente.");
 
             // Set titulo de ventana y texto de boton crear/modificar.
-            lblTitle.setText("Modificar Cliente");
+            stage.setTitle("ServiTec - Modificar cliente");
 
             // Asignar valores de objeto seleccionado a los campos
             tfId.setText(String.valueOf(cliente.getId()));
@@ -116,7 +113,7 @@ public class ClienteCuController implements Initializable {
 
         } else {
             logger.info("Abierta ventana crear factura.");
-            lblTitle.setText("Crear Cliente");
+            stage.setTitle("ServiTec - Crear cliente");
         }
 
     }

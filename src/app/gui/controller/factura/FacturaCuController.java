@@ -108,9 +108,9 @@ public class FacturaCuController implements Initializable {
         stage.setScene(scene);
 
         if (factura != null) {
-            stage.setTitle("Gestión de Taller - Modificar factura");
+            stage.setTitle("ServiTec - Modificar factura");
         } else {
-            stage.setTitle("Gestión de Taller - Nueva factura");
+            stage.setTitle("ServiTec - Nueva factura");
         }
 
         //stage.getIcons().add(new Image(AppConstants.PATH_LOGO));
