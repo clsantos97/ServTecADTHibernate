@@ -52,6 +52,8 @@ Contributor(s):
         <property name="connection.pool_size">10</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="app.model.ClienteEntity"/>
+        <mapping class="app.model.ServicioEntity"/>
+        <mapping class="app.model.FacturaEntity"/>
     
     </session-factory>
 </hibernate-configuration>

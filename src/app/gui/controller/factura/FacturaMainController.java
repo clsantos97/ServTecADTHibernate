@@ -69,7 +69,7 @@ public class FacturaMainController implements Initializable {
     @FXML
     private TableColumn<FacturaBean, Integer> tcId;
     @FXML
-    private TableColumn<FacturaBean, Integer> tcIdCliente;
+    private TableColumn<FacturaBean, ClienteBean> tcIdCliente;
     @FXML
     private TableColumn<FacturaBean, List<ServicioBean>> tcServicios;
     @FXML
@@ -169,9 +169,23 @@ public class FacturaMainController implements Initializable {
 
         // TableCellFactory
         tcId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tcIdCliente.setCellValueFactory(new PropertyValueFactory<>("idcliente"));
+        tcIdCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+        tcIdCliente.setCellFactory(column -> {
+            return new TableCell<FacturaBean, ClienteBean>() {
+                @Override
+                protected void updateItem(ClienteBean item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                        setStyle("");
+                    } else {
+                        setText(item.getName()+" "+item.getLastname());
+                    }
+                }
+            };
+        });
+        
         tcServicios.setCellValueFactory(new PropertyValueFactory<>("servicios"));
-
         // Custom rendering of the table cell.
         tcServicios.setCellFactory(column -> {
             return new TableCell<FacturaBean, List<ServicioBean>>() {
@@ -308,7 +322,10 @@ public class FacturaMainController implements Initializable {
     }
     
     public void reloadTable(){
-        facturasData = FXCollections.observableArrayList(facturaManager.getFacturas());
-        tvFacturas.getItems().setAll(facturasData);
+        //facturasData.setAll(facturaManager.getFacturas());
+        facturasData.setAll(FXCollections.observableArrayList(facturaManager.getFacturas()));
+//        tvFacturas.getItems().clear();
+//        tvFacturas.setItems(facturasData);
+        tvFacturas.refresh();
     }
 }

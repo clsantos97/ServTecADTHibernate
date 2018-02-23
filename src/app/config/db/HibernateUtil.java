@@ -6,6 +6,8 @@
 package app.config.db;
 
 import app.model.ClienteEntity;
+import app.model.FacturaEntity;
+import app.model.ServicioEntity;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -27,6 +29,8 @@ public class HibernateUtil {
             
             Configuration config = new Configuration();
             config.addAnnotatedClass(ClienteEntity.class);
+            config.addAnnotatedClass(ServicioEntity.class);
+            config.addAnnotatedClass(FacturaEntity.class);
             
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
         } catch (Throwable ex) {

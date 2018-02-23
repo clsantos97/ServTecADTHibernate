@@ -14,7 +14,10 @@ import app.logic.pojo.ClienteBean;
 import app.logic.pojo.FacturaBean;
 import app.logic.pojo.ServicioBean;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,6 +59,7 @@ public class FacturaCuController implements Initializable {
     private ClienteManager clienteManager;
     private FacturaMainController facturaMainController;
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private Double total = new Double(0);
 
     @FXML
@@ -135,11 +139,13 @@ public class FacturaCuController implements Initializable {
         List<ClienteBean> clientes = (List) clienteManager.getClientes();
 
         if (factura != null) {
-            cbCliente.setItems(FXCollections.observableArrayList(clientes.stream().filter(c -> c.getId() == factura.getIdcliente()).collect(Collectors.toList())));
+            cbCliente.getItems().clear();
+            cbCliente.getItems().add(factura.getCliente());
             cbCliente.getSelectionModel().selectFirst();
             cbCliente.setDisable(true);
 
-            dpDate.setValue(LocalDate.parse(factura.getDate(), dateFormatter));
+            String fdate = dateFormat.format(factura.getDate());
+            dpDate.setValue(LocalDate.parse(fdate, dateFormatter));
             dpDate.setDisable(true);
 
             if (factura.getServicios() != null) {
@@ -201,8 +207,8 @@ public class FacturaCuController implements Initializable {
     }
     
     public void save(){
-        factura.setDate(dpDate.getValue().format(dateFormatter));
-        factura.setIdcliente(cbCliente.getValue().getId());
+        factura.setDate(Date.from(dpDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        factura.setCliente(cbCliente.getSelectionModel().getSelectedItem());
         factura.setServicios(tvServicios.getItems());
         factura.setTotal(total);
         
@@ -225,9 +231,9 @@ public class FacturaCuController implements Initializable {
             res=false;
             logger.info("factura invalida, servicios."+factura.getServicios().toString());
         }
-        if(factura.getIdcliente()<1 || factura.getIdcliente()==null){
+        if(factura.getCliente().getId()<1 || factura.getCliente()==null){
             res=false;
-            logger.info("factura invalida, idcliente."+factura.getIdcliente());
+            logger.info("factura invalida, idcliente."+factura.getCliente());
             logger.info("cbcliente."+cbCliente.getValue().getId());
         }
         if(factura.getDate()==null){

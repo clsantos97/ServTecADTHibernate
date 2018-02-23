@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import app.logic.pojo.ServicioBean;
+import java.util.Date;
 
 /**
  *
@@ -14,24 +15,24 @@ import app.logic.pojo.ServicioBean;
  */
 public class FacturaBean {
     private SimpleIntegerProperty id;
-    private SimpleIntegerProperty idcliente;
+    private SimpleObjectProperty<ClienteBean> cliente;
     private SimpleObjectProperty<List<ServicioBean>> servicios;
-    private SimpleStringProperty date;
+    private SimpleObjectProperty<Date> date;
     private SimpleDoubleProperty total;
     
-    public FacturaBean(Integer id, Integer idcliente,List<ServicioBean> servicios, String date, Double total){
+    public FacturaBean(Integer id, ClienteBean cliente,List<ServicioBean> servicios, Date date, Double total){
         this.id=new SimpleIntegerProperty(id);
-        this.idcliente=new SimpleIntegerProperty(idcliente);
+        this.cliente=new SimpleObjectProperty<ClienteBean>(cliente);
         this.servicios = new SimpleObjectProperty<List<ServicioBean>>(servicios);
-        this.date = new SimpleStringProperty(date);
+        this.date = new SimpleObjectProperty<Date>(date);
         this.total = new SimpleDoubleProperty(total);
     }
     
     public FacturaBean(){
         this.id=new SimpleIntegerProperty(0);
-        this.idcliente=new SimpleIntegerProperty(0);
+        this.cliente=new SimpleObjectProperty<ClienteBean>();
         this.servicios = new SimpleObjectProperty<List<ServicioBean>>(new ArrayList<>());
-        this.date = new SimpleStringProperty("");
+        this.date = new SimpleObjectProperty<Date>();
         this.total = new SimpleDoubleProperty(0);
     }
 
@@ -64,30 +65,30 @@ public class FacturaBean {
     }
 
     /**
-     * @return the idcliente
+     * @return the cliente
      */
-    public Integer getIdcliente() {
-        return idcliente.get();
+    public ClienteBean getCliente() {
+        return cliente.get();
     }
 
     /**
-     * @param idcliente the idcliente to set
+     * @param cliente the idcliente to set
      */
-    public void setIdcliente(Integer idcliente) {
-        this.idcliente.set(idcliente);
+    public void setCliente(ClienteBean cliente) {
+        this.cliente.set(cliente);
     }
 
     /**
      * @return the date
      */
-    public String getDate() {
+    public Date getDate() {
         return date.get();
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date.set(date);
     }
 
@@ -106,7 +107,7 @@ public class FacturaBean {
     }
  
     public String toString(){
-        return this.getId()+", "+this.getIdcliente()+", "+this.getDate()+", "+this.getServicios()+", "+this.getTotal();
+        return this.getId()+", "+this.getCliente()+", "+this.getDate()+", "+this.getServicios()+", "+this.getTotal();
     }
     
 }

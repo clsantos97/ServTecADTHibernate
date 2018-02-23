@@ -29,7 +29,7 @@ public class ClienteManagerImp implements ClienteManager {
 
     @Override
     public Collection<ClienteBean> getClientes() {
-        logger.log(Level.INFO, "Getting all ingredients");
+        logger.log(Level.INFO, "Getting all clientes");
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<ClienteBean> clienteList = new ArrayList();
 
@@ -127,7 +127,7 @@ public class ClienteManagerImp implements ClienteManager {
 
     @Override
     public boolean insertCliente(ClienteBean cliente) {
-        logger.log(Level.INFO, "Creating ingredient <{0}>.", cliente.getName());
+        logger.log(Level.INFO, "Creating cliente <{0}>.", cliente.getName());
         boolean res = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;

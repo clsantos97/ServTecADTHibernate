@@ -14,11 +14,18 @@ public class ServicioBean {
     private final SimpleStringProperty description;
     private final SimpleDoubleProperty price;
     
-    public ServicioBean(Integer id, String name, String description, Double phone){
+    public ServicioBean(Integer id, String name, String description, Double price){
         this.id=new SimpleIntegerProperty(id);
         this.name=new SimpleStringProperty(name);
         this.description=new SimpleStringProperty(description);
-        this.price=new SimpleDoubleProperty(phone);
+        this.price=new SimpleDoubleProperty(price);
+    }
+    
+    public ServicioBean(String name, String description, Double price){
+        this.id=new SimpleIntegerProperty();
+        this.name=new SimpleStringProperty(name);
+        this.description=new SimpleStringProperty(description);
+        this.price=new SimpleDoubleProperty(price);
     }
 
     public ServicioBean(){
